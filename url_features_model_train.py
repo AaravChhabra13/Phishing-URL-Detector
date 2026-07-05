@@ -6,7 +6,8 @@ from sklearn.metrics import classification_report
 
 df = pd.read_csv("data/features.csv")
 
-feature_cols = df.columns.drop("label")
+feature_cols = ["has_https", "url_length", "num_dots", "num_hyphens",
+                "has_ip", "count_digits", "has_extension"]
 X = df[feature_cols]
 y = df["label"]
 
@@ -28,6 +29,11 @@ print(classification_report(y_test, predictions))
 
 joblib.dump(model, "url_features_model.joblib")
 print("model saved")
+
+# y_proba = model.predict_proba(X_test)[:, 1]
+# from sklearn.metrics import roc_auc_score
+# print(classification_report(y_test, predictions))
+# print("ROC-AUC:", roc_auc_score(y_test, y_proba))  # y_proba = model.predict_proba(X_test)[:,1]
 
 # print(y_train.value_counts())
 # print(y_test.value_counts())
