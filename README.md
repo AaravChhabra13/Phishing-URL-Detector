@@ -12,6 +12,16 @@ The tool takes a raw URL and turns it into a set of numbers called features. Eac
 
 Those seven numbers are then passed to a trained random forest model, which looks at the pattern across all of them and predicts whether the URL is phishing or legitimate.
 
+## Dataset
+
+This project is trained on a public dataset of about 160,000 phishing and legitimate URLs from Kaggle. The dataset is not included in this repository because of its size, so you need to download it yourself.
+
+Download it from https://www.kaggle.com/datasets/victusadi/phishing-urls-dataset-with-extracted-features and place the CSV in a folder called data inside the project, so the path is data/phishing.csv.
+
+This dataset includes both the raw URL and a set of pre-extracted features. This project uses only the raw url column and the label, and builds its own seven features from scratch, so the pre-extracted columns are not used.
+
+The trained model files are also not included. They are created when you run the training script, so the run steps below will generate them for you.
+
 ## How to run it
 
 1. Install the dependencies:
