@@ -5,9 +5,14 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report
 
 df = pd.read_csv("data/features.csv")
+# print(df['brand_edit_distance'].describe())
+
+print(df.shape)
+print((df['brand_edit_distance'] <= 2).sum())
 
 feature_cols = ["has_https", "url_length", "num_dots", "num_hyphens",
-                "has_ip", "count_digits", "has_extension"]
+                "has_ip", "count_digits", "has_extension", "brand_edit_distance"]
+print(df[feature_cols].head())
 X = df[feature_cols]
 y = df["label"]
 
@@ -21,6 +26,9 @@ print(X_test.shape)
 
 model = RandomForestClassifier(class_weight="balanced", random_state=42)
 model.fit(X_train, y_train)
+
+# for name, importance in zip(feature_cols, model.feature_importances_):
+#     print(name, importance)
 
 print("training done")
 

@@ -1,6 +1,9 @@
 import pandas as pd
-df = pd.read_csv("data/phishing.csv")
-from features import has_extension, has_https, url_length, num_dots, num_hyphens, has_ip, count_digits
+df_main = pd.read_csv("data/phishing.csv")
+df_lookalikes = pd.read_csv("data/lookalike_urls.csv")
+
+df = pd.concat([df_main[["url", "label"]], df_lookalikes], ignore_index=True)
+from features import has_extension, has_https, url_length, num_dots, num_hyphens, has_ip, count_digits, brand_edit_distance
 
 df['url_length'] = df['url'].apply(url_length)
 df['num_dots'] = df['url'].apply(num_dots)
@@ -9,7 +12,8 @@ df['has_https'] = df['url'].apply(has_https)
 df['has_ip'] = df['url'].apply(has_ip)
 df['count_digits'] = df['url'].apply(count_digits)
 df['has_extension'] = df['url'].apply(has_extension)
+df['brand_edit_distance'] = df['url'].apply(brand_edit_distance)
 
-print(df[['url', 'url_length', 'num_dots', 'num_hyphens', 'has_https', 'has_ip', 'count_digits', 'has_extension']].head())
+print(df[['url', 'url_length', 'num_dots', 'num_hyphens', 'has_https', 'has_ip', 'count_digits', 'has_extension', 'brand_edit_distance']].head())
 
 df.to_csv("data/features.csv", index=False)
